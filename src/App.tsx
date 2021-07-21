@@ -1,5 +1,4 @@
-/* eslint-disable import/extensions */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.global.css';
@@ -12,7 +11,8 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import { AuthProvider } from './Authentication.jsx';
+import firebase from 'firebase';
+import { AuthProvider } from './Authentication';
 import PrivateRoute from './PrivateRoute';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
@@ -41,9 +41,20 @@ const Main = () => {
 
 export default function App() {
   const classes = useStyles();
-  const [auth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const user = firebase.auth().currentUser;
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userAuth) => {
+      if (userAuth != null) {
+        setAuth(true);
+      } else {
+        setAuth(false);
+      }
+    });
+  }, [user]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

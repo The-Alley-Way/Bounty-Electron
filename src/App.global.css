@@ -5,3 +5,12 @@
 body {
   color: white;
 }
+
+.error {
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #a33535;
+  background-color: #e0caca;
+  padding: 5px;
+  text-align: center;
+}

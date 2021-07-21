@@ -106,7 +106,11 @@ export default function App() {
                   >
                     Profile
                   </MenuItem>
-                  <MenuItem component={Link} to="/" onClick={handleClose}>
+                  <MenuItem
+                    component={Link}
+                    to="/account"
+                    onClick={handleClose}
+                  >
                     My account
                   </MenuItem>
                   <MenuItem onClick={handleSignout}>Signout</MenuItem>

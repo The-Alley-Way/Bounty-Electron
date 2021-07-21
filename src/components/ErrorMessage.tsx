@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import './ErrorMessage.css';
 
-function ErrorMessage(props) {
-  const { errorCode } = props;
+interface Props {
+  errorCode: string;
+}
 
+function ErrorMessage({ errorCode }: Props) {
   function getErrorMessage() {
     switch (errorCode) {
       case 'bounty-list-item-get-fail':

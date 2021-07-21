@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function MyBounties() {
   const classes = useStyles();
   const [bounties, setBounties] = useState<Bounty[]>();
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const user = useContext(AuthContext);
   const { uid, displayName } = user.currentUser;

@@ -1,7 +1,6 @@
-/* eslint-disable import/extensions */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import app from './firebase.ts';
+import app from './firebase';
 
 export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {

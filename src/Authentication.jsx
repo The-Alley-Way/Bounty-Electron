@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import app from './firebase';
 
@@ -13,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
   if (pending) {
-    return <>Please wait...</>;
+    return <h1>Please wait... Bounty is logging you in right now.</h1>;
   }
   return (
     <AuthContext.Provider

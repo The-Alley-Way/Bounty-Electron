@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -67,5 +68,61 @@ export const streamUserBountyListItems = (userId, observer) => {
     .collection('bounties')
     .where('creator', '==', userId)
     .withConverter(bountyConverter)
+    .onSnapshot(observer);
+};
+
+export class UserProfile {
+  pronoun: string;
+
+  username: string;
+
+  bio: string;
+
+  isPublic: boolean;
+
+  email: string;
+
+  constructor(
+    pronoun = 'Error',
+    username = 'Error',
+    bio = 'Error',
+    isPublic = true,
+    email = 'Error'
+  ) {
+    this.pronoun = pronoun;
+    this.username = username;
+    this.bio = bio;
+    this.isPublic = isPublic;
+    this.email = email;
+  }
+}
+
+const userConverter = {
+  toFirestore(user) {
+    return {
+      pronoun: user.pronoun,
+      username: user.username,
+      bio: user.bio,
+      isPublic: user.isPublic,
+      email: user.email,
+    };
+  },
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options);
+    return new UserProfile(
+      data.pronoun,
+      data.username,
+      data.bio,
+      data.isPublic,
+      data.email
+    );
+  },
+};
+
+export const streamUserProfile = (userId, observer) => {
+  return db
+    .collection('users')
+    .doc(userId)
+    .withConverter(userConverter)
     .onSnapshot(observer);
 };

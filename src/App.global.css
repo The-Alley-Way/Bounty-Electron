@@ -14,3 +14,10 @@ body {
   padding: 5px;
   text-align: center;
 }
+
+.MyProfile {
+  margin-top: 50px;
+  max-width: fit-content;
+  float: right;
+  margin-right: 50px;
+}

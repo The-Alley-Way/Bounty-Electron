@@ -13,7 +13,6 @@ function Profile() {
   useEffect(() => {
     const unsubscribe = streamUserProfile(uid, {
       next: (querySnapshot) => {
-        console.log(querySnapshot.data());
         setProfile(querySnapshot.data());
         setIsLoading(false);
       },

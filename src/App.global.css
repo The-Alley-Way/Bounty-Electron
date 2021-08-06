@@ -2,8 +2,9 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+
 body {
-  color: white;
+  background-color: white;
 }
 
 .error {
@@ -15,9 +16,20 @@ body {
   text-align: center;
 }
 
-.MyProfile {
-  margin-top: 50px;
+.ProfileProjectSection {
+  max-width: 50%;
+  float: left;
+}
+
+.ProfileProjectHeader {
+  max-width: fit-content;
+}
+
+.ProfileHeader {
   max-width: fit-content;
   float: right;
-  margin-right: 50px;
+}
+
+.ProfileSection {
+  float: right;
 }

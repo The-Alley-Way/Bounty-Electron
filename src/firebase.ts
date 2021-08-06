@@ -82,18 +82,22 @@ export class UserProfile {
 
   email: string;
 
+  pfpUrl: string;
+
   constructor(
     pronoun = 'Error',
     username = 'Error',
     bio = 'Error',
     isPublic = true,
-    email = 'Error'
+    email = 'Error',
+    pfpUrl = ''
   ) {
     this.pronoun = pronoun;
     this.username = username;
     this.bio = bio;
     this.isPublic = isPublic;
     this.email = email;
+    this.pfpUrl = pfpUrl;
   }
 }
 
@@ -105,6 +109,7 @@ const userConverter = {
       bio: user.bio,
       isPublic: user.isPublic,
       email: user.email,
+      pfpUrl: user.pfpUrl,
     };
   },
   fromFirestore(snapshot, options) {
@@ -114,7 +119,8 @@ const userConverter = {
       data.username,
       data.bio,
       data.isPublic,
-      data.email
+      data.email,
+      data.pfpUrl
     );
   },
 };
@@ -125,4 +131,68 @@ export const streamUserProfile = (userId, observer) => {
     .doc(userId)
     .withConverter(userConverter)
     .onSnapshot(observer);
+};
+
+export class Project {
+  title: string;
+
+  description: string;
+
+  members: string[];
+
+  creator: string;
+
+  constructor(
+    title = 'Error',
+    description = 'Error',
+    members = ['Error'],
+    creator = 'Error'
+  ) {
+    this.title = title;
+    this.description = description;
+    this.members = members;
+    this.creator = creator;
+  }
+}
+
+const projectConverter = {
+  toFirestore(project) {
+    return {
+      title: project.title,
+      description: project.description,
+      members: project.members,
+      creator: project.creator,
+    };
+  },
+  fromFirestore(snapshot, options) {
+    const data = snapshot.data(options);
+    return new Project(
+      data.title,
+      data.description,
+      data.members,
+      data.creator
+    );
+  },
+};
+
+export const streamProjects = (userId, observer) => {
+  return db
+    .collection('projects')
+    .withConverter(projectConverter)
+    .where('members', 'array-contains', userId)
+    .onSnapshot(observer);
+};
+
+export const getUser = async (userId) => {
+  try {
+    const response = await db
+      .collection('users')
+      .doc(userId)
+      .withConverter(userConverter)
+      .get();
+
+    return response.data();
+  } catch (err) {
+    return err;
+  }
 };

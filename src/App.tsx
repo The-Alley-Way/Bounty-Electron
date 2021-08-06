@@ -123,7 +123,7 @@ export default function App() {
                     to="/account"
                     onClick={handleClose}
                   >
-                    My account
+                    My Account
                   </MenuItem>
                   <MenuItem onClick={handleSignout}>Signout</MenuItem>
                 </Menu>
